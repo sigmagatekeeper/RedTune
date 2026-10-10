@@ -1,4 +1,4 @@
-name: REDTUNE
+name: Build RedTune VST3
 
 on:
   push:
@@ -21,9 +21,9 @@ jobs:
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Path out | Out-Null
-          Copy-Item -Recurse -Path "build/DemonVoice_artefacts/Release/VST3/DemonVoice.vst3" -Destination "out/DemonVoice.vst3"
+          Get-ChildItem -Path build -Recurse -Directory -Filter *.vst3 | ForEach-Object { Copy-Item -Recurse $_.FullName -Destination out }
 
       - uses: actions/upload-artifact@v4
         with:
-          name: DemonVoice-VST3
+          name: RedTune-VST3
           path: out/
